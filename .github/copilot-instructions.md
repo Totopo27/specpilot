@@ -5,7 +5,7 @@ Never rely solely on conversational chat history. The file system is the single 
 
 ---
 
-## ⛔ Absolute Constraints
+## Absolute Constraints
 
 1. **No Premature Coding:**
    Never write application or test code unless explicit, approved tasks exist in either `.odd/tasks/*.md` (ODD) or `.sdd/03-tasks.md` (SDD).
@@ -21,7 +21,7 @@ Never rely solely on conversational chat history. The file system is the single 
 
 ---
 
-## 🛠️ Role Definitions & Commands
+## Role Definitions & Commands
 
 When the user mentions or invokes one of these commands, assume the designated persona and load the corresponding prompt from `.github/prompts/`:
 

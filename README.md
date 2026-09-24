@@ -55,7 +55,7 @@ SpecPilot traslada el patrón de máquina de estados guiada por artefactos (util
 
 ## Ciclos de Vida
 
-### 🌿 Carril ODD (Orgánico / Recomendado para el día a día)
+### Carril ODD (Orgánico / Recomendado para el día a día)
 ```text
 Requerimiento del Usuario
           │
@@ -70,7 +70,7 @@ Requerimiento del Usuario
    [ sdd-verify ]    ──► Genera `.sdd/04-verify-report.md` ──► Listo para PR
 ```
 
-### 🏛️ Carril SDD (Formal / Para alta incertidumbre arquitectónica)
+### Carril SDD (Formal / Para alta incertidumbre arquitectónica)
 ```text
 Requerimiento de Alta Complejidad
           │
