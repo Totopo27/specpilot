@@ -1,0 +1,4 @@
+# Feature documents for Organic Driven Development (ODD)
+tasks/
+*.md
+!.gitkeep
