@@ -17,13 +17,14 @@ Implementar la siguiente tarea pendiente de la lista activa (sea `.odd/tasks/*.m
 1. **Lectura de contexto (Localiza la lista activa):**
    - Si existe un documento en `.odd/tasks/*.md`, esa es tu fuente de verdad para tareas y alcance.
    - De lo contrario, lee `.sdd/03-tasks.md` (y `.sdd/02-spec.md` para los contratos formales).
+   - Lee prioritariamente la sección `Entorno y Ejecución de Pruebas` en el documento activo para obtener el stack, test runner y ubicación de pruebas.
    - Identifica la PRIMERA tarea con estado `- [ ]`.
 2. **Fase RED (Prueba Primero):**
-   - Detecta el framework de pruebas del repositorio (Jest, Vitest, Pytest, Go test, JUnit, etc.).
-   - Escribe el archivo de prueba definiendo el caso de uso esperado. La prueba DEBE fallar al ejecutarse o no compilar porque la funcionalidad aún no existe.
+   - Lee primero la sección `Entorno y Ejecución de Pruebas` del documento de tareas activo. DEBES utilizar el comando exacto de ejecución del test runner y la convención/ubicación de archivos allí registradas, en lugar de adivinar o volver a explorar el entorno en cada turno de tarea.
+   - Escribe el archivo de prueba en la convención y ruta indicada definiendo el caso de uso esperado. La prueba DEBE fallar al ejecutarse con el comando registrado o no compilar porque la funcionalidad aún no existe.
 3. **Fase GREEN (Código Mínimo):**
    - Escribe el código de producción mínimo requerido para que la prueba pase.
-   - Ejecuta o valida la prueba asegurando que pase a verde.
+   - Ejecuta la prueba con el comando exacto registrado en `Test Runner` de la sección `Entorno y Ejecución de Pruebas` y valida que pase a verde sin fallos.
 4. **Fase REFACTOR y Triangulación:**
    - Agrega casos de prueba adicionales para cubrir casos límite o entradas no triviales.
    - Limpia duplicación y optimiza el diseño manteniendo las pruebas en verde.

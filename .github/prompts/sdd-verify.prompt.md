@@ -14,7 +14,13 @@ Auditar que el código implementado satisfaga rigurosamente los requerimientos (
    - De lo contrario, lee `.sdd/03-tasks.md` (confirmando que todo esté en `- [x]`) y contrasta contra `.sdd/02-spec.md`.
    - Si restan tareas pendientes, notifícalo al usuario en el chat.
 2. Compara el código implementado contra los contratos, flujos y casos límite especificados.
-3. Genera el informe `.sdd/04-verify-report.md` siguiendo estrictamente la siguiente plantilla:
+3. Evalúa rigurosamente la **Definición de Terminado (Definition of Done - DoD)**:
+   - **Tests:** Confirma que todas las pruebas pasen sin excepciones ni skips no autorizados ejecutando el test runner registrado en el documento activo.
+   - **Linter & Formato:** Verifica que el código esté formateado y libre de advertencias o errores de linter (`npm run lint`, `cargo clippy`, `flake8`/`ruff`, etc.).
+   - **Higiene:** Audita que haya cero secretos, tokens, credenciales o rutas absolutas hardcodeadas.
+   - **Dependencias:** Comprueba que no se hayan introducido dependencias innecesarias o sin justificar.
+   - **Commit sugerido:** Genera un mensaje de commit convencional claro y listo para copiar (tipo `feat(área): descripción imperativa corta`).
+4. Genera el informe `.sdd/04-verify-report.md` siguiendo estrictamente la siguiente plantilla:
 
 ```markdown
 # Reporte de Verificación: [Nombre de la Funcionalidad o Cambio]
@@ -35,6 +41,13 @@ Auditar que el código implementado satisfaga rigurosamente los requerimientos (
 - **Resultado de ejecución:** [Todos los tests pasan / Existen fallos]
 - **Evaluación TDD:** [Se verifica implementación guiada por pruebas]
 
+## Definición de Terminado (Definition of Done - DoD)
+- [ ] **Tests:** Todas las pruebas pasan sin excepciones ni skips no autorizados.
+- [ ] **Linter & Formato:** Código formateado y sin errores de linter (`npm run lint`, `cargo clippy`, `flake8`/`ruff`, etc.).
+- [ ] **Higiene:** Cero secretos, tokens, credenciales o rutas absolutas hardcodeadas.
+- [ ] **Dependencias:** No se agregaron dependencias innecesarias o sin justificar.
+- [ ] **Commit sugerido:** Generar un mensaje de commit convencional claro y listo para copiar (tipo `feat(área): descripción imperativa corta`).
+
 ## Verificación de Seguridad e Higiene
 - [ ] **Sin secretos expuestos:** Ninguna credencial, token, clave API o variable sensible ha sido hardcodeada en el código fuente o en las pruebas.
 - [ ] **Validación de entradas:** Toda entrada externa, parámetro o payload de usuario es debidamente validado, sanitizado y acotado.
@@ -49,8 +62,8 @@ Auditar que el código implementado satisfaga rigurosamente los requerimientos (
 - **Acción de Archivado:** [Si está APROBADO: mover archivo activo a .odd/archive/ o .sdd/archive/]
 ```
 
-4. Guarda el archivo directamente en `.sdd/04-verify-report.md`.
-5. **Cierre de Ciclo y Archivado:**
+5. Guarda el archivo directamente en `.sdd/04-verify-report.md`.
+6. **Cierre de Ciclo y Archivado:**
    - Una vez que la verificación resulte en **APROBADO** y el cambio esté listo para Pull Request, ofrece o instruye archivar el documento de la feature activa:
      - En **ODD**: mover `.odd/tasks/[nombre-feature].md` a `.odd/archive/[nombre-feature].md`.
      - En **SDD**: consolidar y mover los artefactos (`01-proposal.md`, `02-spec.md`, `03-tasks.md`, `04-verify-report.md`) a `.sdd/archive/[nombre-feature]/`.

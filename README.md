@@ -10,11 +10,11 @@ Arquitectura basada en máquina de estados sobre el sistema de archivos, sin dep
 Los 3 pasos esenciales para el 90% del trabajo diario:
 
 1. **Iniciar feature:** `odd: [nombre o descripción de la feature]`  
-   Crea el documento único de alcance y tareas en `.odd/tasks/<feature>.md`.
+   Detecta automáticamente el stack y test runner desde los manifiestos y crea el documento único de alcance y tareas en `.odd/tasks/<feature>.md`.
 2. **Implementar con TDD:** `sdd-apply-tdd`  
-   Avanza tarea por tarea en ciclo Red-Green-Refactor y marca cada elemento completado (`[x]`).
+   Avanza tarea por tarea en ciclo Red-Green-Refactor usando el comando exacto registrado y marca cada elemento completado (`[x]`).
 3. **Verificar y Archivar:** `sdd-verify`  
-   Audita contratos, suite de pruebas y seguridad (`.sdd/04-verify-report.md`) y archiva la feature a `.odd/archive/`.
+   Audita contratos, Definition of Done (DoD: tests, linter, higiene, dependencias y commit sugerido) en `.sdd/04-verify-report.md` y archiva la feature a `.odd/archive/`.
 
 ---
 
@@ -50,6 +50,7 @@ SpecPilot traslada el patrón de **máquina de estados guiada por artefactos** d
 4. **Desarrollo guiado por pruebas por defecto (Strict TDD):** La implementación ejecuta el ciclo Red-Green-Refactor (`sdd-apply-tdd`). El modo directo (`sdd-apply`) se reserva para configuraciones puras o solicitudes explícitas.
 5. **Unidades de trabajo atómicas:** El avance ocurre tarea por tarea, marcando de forma incremental cada checklist (`[x]`) con su respectiva evidencia.
 6. **Prompts autocontenidos y seguros:** Cada rol define sus límites de comportamiento, integridad anti-jailbreak y prohibición de exfiltración de datos.
+7. **Detección determinista de tests y DoD estricto:** El stack tecnológico y comando de test runner se detectan desde los manifiestos al inicio (`odd` o `sdd-tasks`) para no re-explorar en cada tarea. La fase final (`sdd-verify`) valida una Definición de Terminado (DoD) estricta y genera el mensaje de commit convencional.
 
 ---
 
@@ -60,13 +61,13 @@ SpecPilot traslada el patrón de **máquina de estados guiada por artefactos** d
 ├── .github/
 │   ├── copilot-instructions.md          # Reglas maestras de comportamiento, seguridad y gobernanza
 │   └── prompts/                         # Prompts modulares autocontenidos por rol
-│       ├── odd.prompt.md                # Flujo Orgánico ágil (documento único de tareas)
+│       ├── odd.prompt.md                # Flujo Orgánico ágil (sniffing de tests + documento único)
 │       ├── sdd-propose.prompt.md        # Propuesta técnica y alcance formal (SDD)
 │       ├── sdd-spec.prompt.md           # Requisitos y contratos de datos (SDD)
-│       ├── sdd-tasks.prompt.md          # Desglose de tareas atómicas (SDD)
+│       ├── sdd-tasks.prompt.md          # Desglose de tareas atómicas y entorno de tests (SDD)
 │       ├── sdd-apply-tdd.prompt.md      # Implementación con TDD estricto (por defecto)
 │       ├── sdd-apply.prompt.md          # Implementación directa / modo rápido
-│       └── sdd-verify.prompt.md         # Auditoría, checklist de seguridad y reporte
+│       └── sdd-verify.prompt.md         # Auditoría, Definition of Done (DoD) y reporte
 ├── .odd/                                # Estado de features bajo flujo ODD
 │   ├── tasks/                           # Feature activa (.odd/tasks/<feature>.md)
 │   └── archive/                         # Histórico de features completadas
@@ -86,14 +87,14 @@ SpecPilot traslada el patrón de **máquina de estados guiada por artefactos** d
 Requerimiento
      │
      ▼
-  [ odd ]            ──► Crea `.odd/tasks/<feature>.md` (Alcance + Checklist atómico)
+  [ odd ]            ──► Detecta stack/runner y crea `.odd/tasks/<feature>.md`
      │
      ▼
 [ sdd-apply-tdd ]    ──► Test (RED) ──► Código (GREEN) ──► Refactor ──► Marca `[x]`
 (o sdd-apply)
      │
      ▼ (Checklist completado)
- [ sdd-verify ]      ──► Genera `.sdd/04-verify-report.md` (Contratos + Tests + Seguridad)
+ [ sdd-verify ]      ──► Genera `.sdd/04-verify-report.md` (Contratos + DoD + Commit)
      │
      ▼ (Aprobado)
 Archivado & PR       ──► Mueve a `.odd/archive/<feature>.md` ──► Listo para PR
@@ -110,13 +111,13 @@ Requerimiento Complejo
    [ sdd-spec ]      ──► Genera `.sdd/02-spec.md` (Contratos e interfaces)
      │
      ▼
-  [ sdd-tasks ]      ──► Genera `.sdd/03-tasks.md` (Desglose secuencial)
+  [ sdd-tasks ]      ──► Detecta runner y genera `.sdd/03-tasks.md`
      │
      ▼
 [ sdd-apply-tdd ]    ──► Ciclo Red-Green-Refactor por tarea
      │
      ▼
- [ sdd-verify ]      ──► Genera `.sdd/04-verify-report.md`
+ [ sdd-verify ]      ──► Genera `.sdd/04-verify-report.md` (DoD + Commit)
      │
      ▼ (Aprobado)
 Archivado & PR       ──► Mueve a `.sdd/archive/<feature>/` ──► Listo para PR
@@ -131,23 +132,23 @@ Archivado & PR       ──► Mueve a `.sdd/archive/<feature>/` ──► Listo
    ```text
    Usa odd para: [descripción de la funcionalidad o refactor]
    ```
-   Copilot explorará el código base y generará `.odd/tasks/<nombre-feature>.md` con el checklist inicial.
+   Copilot explorará el código base, detectará el stack y comando exacto de tests desde los manifiestos, y generará `.odd/tasks/<nombre-feature>.md` con el checklist inicial.
 2. **Implementar tarea por tarea con TDD:**
    ```text
    Ejecuta sdd-apply-tdd
    ```
-   Copilot toma la siguiente tarea pendiente, escribe la prueba primero, implementa la solución y marca `- [x]`.
+   Copilot toma la siguiente tarea pendiente, lee el test runner registrado en el documento, escribe la prueba primero, implementa la solución y marca `- [x]`.
 3. **Verificar y auditar:**
    ```text
    Ejecuta sdd-verify
    ```
-   Genera `.sdd/04-verify-report.md` validando contratos, salud de tests e higiene de seguridad (sin secretos expuestos y validación de entradas).
+   Genera `.sdd/04-verify-report.md` validando contratos, salud de tests, Definition of Done (DoD: tests limpios, linter/formato, higiene, dependencias) y genera un mensaje de commit convencional listo para copiar.
 4. **Archivar para el Pull Request:**
    Mueve el documento completado a `.odd/archive/` para dejar el espacio activo limpio para el próximo cambio.
 
 ### Opción B: Flujo Formal SDD
 1. **Iniciar propuesta:** `Usa sdd-propose para diseñar: [requerimiento]`
 2. **Especificar contratos:** `Ejecuta sdd-spec`
-3. **Desglosar tareas:** `Ejecuta sdd-tasks`
+3. **Desglosar tareas y detectar runner:** `Ejecuta sdd-tasks` (detecta el stack y test runner determinista)
 4. **Implementar con TDD:** `Ejecuta sdd-apply-tdd`
-5. **Auditar y archivar:** `Ejecuta sdd-verify` y traslada los artefactos a `.sdd/archive/`.
+5. **Auditar con DoD y archivar:** `Ejecuta sdd-verify` (audita DoD y sugiere commit) y traslada los artefactos a `.sdd/archive/`.

@@ -20,9 +20,11 @@ Resolver un requerimiento sustancial de forma ágil creando un **único document
 
 ### Paso 1: Exploración, Diagnóstico y Ciclo de Vida (Read-only)
 1. Lee los archivos relevantes del repositorio antes de proponer código o cambios.
-2. Identifica:
-   - Framework y lenguaje del proyecto.
-   - Entorno de pruebas disponible (Jest, Vitest, Pytest, Go test, etc.).
+2. **Detección Activa del Stack y Test Runner:**
+   Inspecciona obligatoriamente los archivos de manifiesto (`package.json`, `pyproject.toml`/`pytest.ini`, `go.mod`, `Cargo.toml`, `pom.xml`, etc.) para determinar:
+   - **Lenguaje / Framework:** tecnología y framework base del proyecto.
+   - **Test Runner y comando exacto de ejecución:** comando preciso para correr los tests (ej. `npm test --`, `pytest -v`, `go test ./...`, `cargo test`).
+   - **Convención y ubicación de tests:** ruta o patrón de nombrado para pruebas (ej. `tests/`, `__tests__/`, `*_test.go`, `*_test.rs`).
    - Puntos de extensión y archivos a modificar.
 3. **Ciclo de Vida de Features y Limpieza:**
    - Revisa `.odd/tasks/` antes de iniciar la nueva feature.
@@ -39,6 +41,11 @@ Crea el archivo `.odd/tasks/[nombre-feature].md` (ejemplo: `.odd/tasks/user-prof
 - **Problema:** [Qué problema resuelve o qué valor agrega]
 - **Enfoque técnico:** [Breve descripción de la solución elegida y archivos involucrados]
 - **Estrategia de verificación:** [Cómo se prueba: comandos de test o validación funcional]
+
+### Entorno y Ejecución de Pruebas
+- **Stack:** [Lenguaje / Framework detectado]
+- **Test Runner:** [Comando exacto para ejecutar los tests, ej: `npm test`]
+- **Ubicación de Tests:** [Ruta o patrón de nombrado para pruebas, ej: `tests/**/*.test.ts`]
 
 ## 2. Checklist de Tareas Atómicas
 > Regla: Cada tarea incluye pruebas automatizadas junto al código (TDD preferente) y un tamaño razonable (~30-80 líneas).
