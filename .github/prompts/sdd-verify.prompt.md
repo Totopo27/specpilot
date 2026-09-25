@@ -35,13 +35,23 @@ Auditar que el código implementado satisfaga rigurosamente los requerimientos (
 - **Resultado de ejecución:** [Todos los tests pasan / Existen fallos]
 - **Evaluación TDD:** [Se verifica implementación guiada por pruebas]
 
+## Verificación de Seguridad e Higiene
+- [ ] **Sin secretos expuestos:** Ninguna credencial, token, clave API o variable sensible ha sido hardcodeada en el código fuente o en las pruebas.
+- [ ] **Validación de entradas:** Toda entrada externa, parámetro o payload de usuario es debidamente validado, sanitizado y acotado.
+
 ## Hallazgos
 - **CRÍTICO:** [Discrepancias con la especificación, fallos de seguridad o bugs bloqueantes. 'Ninguno' si todo está en orden]
 - **ADVERTENCIA:** [Mejoras de rendimiento, deuda técnica o huecos menores de cobertura]
 - **SUGERENCIA:** [Refactorizaciones cosméticas o sugerencias opcionales]
 
-## Recomendación de Integración
-[Listo para Pull Request / Requiere ajustes previos]
+## Recomendación de Integración y Archivado
+- **Recomendación:** [Listo para Pull Request / Requiere ajustes previos]
+- **Acción de Archivado:** [Si está APROBADO: mover archivo activo a .odd/archive/ o .sdd/archive/]
 ```
 
 4. Guarda el archivo directamente en `.sdd/04-verify-report.md`.
+5. **Cierre de Ciclo y Archivado:**
+   - Una vez que la verificación resulte en **APROBADO** y el cambio esté listo para Pull Request, ofrece o instruye archivar el documento de la feature activa:
+     - En **ODD**: mover `.odd/tasks/[nombre-feature].md` a `.odd/archive/[nombre-feature].md`.
+     - En **SDD**: consolidar y mover los artefactos (`01-proposal.md`, `02-spec.md`, `03-tasks.md`, `04-verify-report.md`) a `.sdd/archive/[nombre-feature]/`.
+   - Esto mantiene el espacio de trabajo activo limpio, evita ambigüedades en futuras sesiones y preserva el registro histórico sin sobrecargar el contexto.

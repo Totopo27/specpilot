@@ -1,0 +1,52 @@
+# Environment & Secrets
+.env
+.env.*
+*.pem
+*.key
+secrets.json
+
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor artifacts
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/prompts/
+!.vscode/*.prompt.md
+
+# Dependencies & Build Caches
+node_modules/
+dist/
+build/
+target/
+__pycache__/
+*.pyc
+[Bb]in/
+[Oo]bj/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.turbo/
+.cache/
+
+# Test & Coverage artifacts
+coverage/
+*.lcov
+*.log
+
+# SpecPilot local scratch / temporary files
+# Keeps .odd/ and .sdd/ tracked, ignores local scratch files
+.odd/**/*.tmp
+.odd/**/*.scratch
+.sdd/**/*.tmp
+.sdd/**/*.scratch
+*.tmp
+*.temp
+
+# Local agent metadata
+.atl/

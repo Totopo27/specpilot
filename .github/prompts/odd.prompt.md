@@ -18,12 +18,16 @@ Resolver un requerimiento sustancial de forma ágil creando un **único document
 
 ## Protocolo de Ejecución
 
-### Paso 1: Exploración y Diagnóstico (Read-only)
+### Paso 1: Exploración, Diagnóstico y Ciclo de Vida (Read-only)
 1. Lee los archivos relevantes del repositorio antes de proponer código o cambios.
 2. Identifica:
    - Framework y lenguaje del proyecto.
    - Entorno de pruebas disponible (Jest, Vitest, Pytest, Go test, etc.).
    - Puntos de extensión y archivos a modificar.
+3. **Ciclo de Vida de Features y Limpieza:**
+   - Revisa `.odd/tasks/` antes de iniciar la nueva feature.
+   - Si existen documentos de features previas con todas sus tareas completadas (`[x]`), verifica si deben ser archivados trasladándolos a `.odd/archive/[nombre-feature].md`.
+   - Mantener `.odd/tasks/` con una sola feature activa previene ambigüedades, descarte involuntario de contexto y amnesia en futuras sesiones.
 
 ### Paso 2: Creación del Documento de Tareas
 Crea el archivo `.odd/tasks/[nombre-feature].md` (ejemplo: `.odd/tasks/user-profile-api.md`) con la siguiente plantilla estricta:
